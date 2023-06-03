@@ -4,7 +4,7 @@ from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
 
 st.set_page_config(
-    page_title="Hanuman Resume", page_icon=":tada:", layout="wide")
+    page_title="Hanuman's Profile", page_icon=":tada:", layout="wide")
 
 def load_lottieurl(url):
     r = requests.get(url)
