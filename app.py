@@ -2,15 +2,21 @@ import requests
 import streamlit as st
 from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
+from PIL import Image
+from itertools import cycle
 
 st.set_page_config(
     page_title="Hanuman's Profile", page_icon=":tada:", layout="wide")
+
+with open("HanumanResumeLatest.pdf", "rb") as pdf_file:
+    PDFbyte = pdf_file.read()
 
 def load_lottieurl(url):
     r = requests.get(url)
     if r.status_code != 200:
         return None
     return r.json()
+    
 
 #---- Declare CSS for Form ----
 def load_css(file):
@@ -22,6 +28,29 @@ load_css("style/style.css")
 
 #---- LOAD ASSETS ----
 lottie_coding = load_lottieurl("https://assets10.lottiefiles.com/private_files/lf30_wqypnpu5.json")
+
+lottie_download = load_lottieurl("https://assets3.lottiefiles.com/packages/lf20_r2G98gnRgd.json")
+
+lottie_java = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_zh6xtlj9.json")
+
+lottie_js = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_we9lzvwy.json")
+
+lottie_python = load_lottieurl("https://assets8.lottiefiles.com/packages/lf20_8MyemMY7OK.json")
+
+
+#----------Skilled Images --------------
+
+java = Image.open("images/java.png")
+js = Image.open("images/js.png")
+ts = Image.open("images/ts.png")
+angular = Image.open("images/angular.png")
+sb = Image.open("images/springboot.png")
+css = Image.open("images/css.jpg")
+html = Image.open("images/html.png")
+sql = Image.open("images/sql.png")
+python = Image.open("images/python.png")
+
+
 
 # ---------- HEADER SECTIONS -----------
 with st.container():
@@ -66,23 +95,12 @@ with st.container():
 
 
     if selected == "Skills":
-        st.header("Skills")
-        st.write("##")
-        st.write(
-            """
-            - Java
-            - Python
-            - Java script
-            - Type script
-            - Angular
-            - Sql
-            - RDBMS
-            - HTML
-            - CSS
-            - Bootstrap
-            """
-        )
-
+        filteredImages = [java, js, ts, angular, sb, css, html, sql, python] # your images here
+        caption = ["java", "Javascrpit", "Typescript", "Angular", "Springboot", "Css", "HTML", "Sql", "Python"] # your caption here
+        cols = cycle(st.columns(3)) # st.columns here since it is out of beta at the time I'm writing this
+        for idx, filteredImage in enumerate(filteredImages):
+            next(cols).image(filteredImage, width=100, caption=caption[idx])
+        
     if selected == "GitHub":
         st.header("This is my GitHub profile!")
         st.write("""
@@ -117,8 +135,10 @@ with st.container():
 
 with st.container():
     st.write("---")
-    st.header("Get in touch with me!")
-    contact_form = """
+    first_column, second_column = st.columns(2)
+    with first_column:
+        st.header("Get in touch with me!")
+        contact_form = """
     
     <form action="https://formsubmit.co/hanumankumar.aasi@gmail.com" method="POST">
     <input type="hidden"name="_captcha" value="false">
@@ -129,9 +149,12 @@ with st.container():
 </form>
 
     """
-
-    first_column, second_column = st.columns(2)
-    with first_column:
+    
         st.markdown(contact_form, unsafe_allow_html=True)
+
     with second_column:
-        st.empty()
+        st.header("Want to download my resume 📄?")
+        st.download_button(label="Click Here to Download",
+                    data=PDFbyte,
+                    file_name="HanumanResume.pdf",
+                    mime='application/octet-stream')

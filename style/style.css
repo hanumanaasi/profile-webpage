@@ -26,8 +26,48 @@ button[type=submit]:hover {
   background-color: #45a049;
 }
 
+label[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+button.css-b3z5c9.edgvbvh10 {
+  background-color:blueviolet;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border: #ccc;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+button.css-b3z5c9.edgvbvh10:hover{
+  background-color: #8a7cbc;
+}
+
+div.css-ocqkz7.e1tzin5v3{
+  height: 100px auto;
+}
+
+
+
+/* When moving the mouse over the submit button, add a darker green color */
+button[type=submit]:hover {
+  background-color: #45a049;
+}
+
 
 /* Hide Streamlit Branding */
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 header {visibility: hidden;}
+
+div.css-io98ki.e1tzin5v0 {
+  border: 1px #ccc;
+}
